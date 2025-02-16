@@ -1,30 +1,19 @@
-import { useEffect, useState } from 'react'
 import './App.css'
 import { Header } from './components/header/Header';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { NewThread } from './components/thread/NewThread';
+import { ThreadList } from './components/thread/ThreadList';
 
 function App() {
-  const [threads, setThreads] = useState([]);
-
-  useEffect(() => {
-    const fetchThreads = async () => {
-        const resposne = await fetch("https://railway.bulletinboard.techtrain.dev/threads?offset=0");
-        const threadLists = await resposne.json();
-        setThreads(threadLists);
-    }
-    fetchThreads();
-  }, []);
-  
   return (
     <>
+      <BrowserRouter>
       <Header />
-      <div>
-        <p>新着スレッド</p>
-        <ul>
-          {threads.map((thread) => (
-            <li key={thread.id}>{thread.title}</li>
-          ))}
-        </ul>
-      </div>
+      <Routes>
+        <Route path="/" element={<ThreadList />} />
+        <Route path="/threads/new" element={<NewThread />} />
+      </Routes> 
+      </BrowserRouter>
     </>
   )
 }
