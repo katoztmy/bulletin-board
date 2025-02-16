@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import { Header } from './components/header/Header';
 
 function App() {
   const [threads, setThreads] = useState([]);
@@ -15,10 +16,7 @@ function App() {
   
   return (
     <>
-      <header>
-        <p>掲示板</p>
-        <p>スレッドを立てる</p>
-      </header>
+      <Header />
       <div>
         <p>新着スレッド</p>
         <ul>
