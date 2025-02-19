@@ -15,7 +15,6 @@ export const Thread = () => {
   };
 
   useEffect(() => {
-    console.log("go");
     fetchComments();
   }, []);
   return (

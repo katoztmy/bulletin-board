@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const NewThread = () => {
+export const NewThreadForm = () => {
   const [title, setTitle] = useState("");
   const handleInputTitle = (e) => {
     setTitle(e.target.value);
