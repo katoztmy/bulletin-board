@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useRef } from "react";
 
 export const NewCommentForm = ({ threadId, setComments, fetchComments }) => {
-  const [post, setPost] = useState("");
+  const inputRef = useRef(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const post = inputRef.current.value;
     const response = await fetch(
       `https://railway.bulletinboard.techtrain.dev/threads/${threadId}/posts`,
       {
@@ -14,13 +15,10 @@ export const NewCommentForm = ({ threadId, setComments, fetchComments }) => {
         body: JSON.stringify({ post }),
       }
     );
-    const newComment = await response.json(); // APIからのレスポンスを取得
+    const newComment = await response.json();
     setComments((prev) => [...prev, { id: newComment.id, post }]);
-    setPost("");
+    inputRef.current.value = "";
     fetchComments();
-  };
-  const handleText = (e) => {
-    setPost(e.target.value);
   };
   return (
     <>
@@ -29,8 +27,7 @@ export const NewCommentForm = ({ threadId, setComments, fetchComments }) => {
           <textarea
             name="投稿"
             placeholder="投稿しよう！"
-            onChange={handleText}
-            value={post}
+            ref={inputRef}
           ></textarea>
           <button type="submit">投稿</button>
         </form>
